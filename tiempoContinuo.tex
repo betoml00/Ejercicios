@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-noshorthands]{babel}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{tcolorbox}
+\decimalpoint
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0cm}
+\usepackage[a4paper, width=160mm, top=25mm, bottom = 25mm]{geometry}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Procesos a tiempo continuo}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{15pt}
+
+\title{
+    Procesos estocásticos I \\
+    \large Tarea: Procesos a tiempo continuo
+}
+\author{José Alberto Márquez Luján, \texttt{187917}}
+\date{Verano 2022}
+
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+\begin{document}
+\maketitle
+
+% Pregunta 16
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{16.} Sea $X(t) = \{X(t), t \geq 0\}$ un PE que tiene incrementos independientes y función media $m(t) := \E[X(t)]$ finita para todo $t\geq 0$. Demuestre que si $0 \leq t_1 < \cdots t_n < t_{n+1}$, entonces
+    \[ \E[X(t_{n+1}) \mid X(t_1), \ldots, X(t_n)] = X(t_n) + m(t_{n+1}) - m(t_n). \]
+\end{tcolorbox} 
+
+\noindent
+\textit{Solución}. 
+\begin{align*}
+    \E[X(t_{n+1}) \mid X(t_1), \ldots, X(t_n)] &= \E[X(t_{n+1}) + X(t_n) - X(t_n) \mid X(t_1), \ldots, X(t_n)] \\
+    \begin{split}
+    &= \E[X(t_{n+1}) - X(t_n) \mid X(t_1), \ldots, X(t_n)] \\
+        & \quad \quad + \E[X(t_n)\mid X(t_1), \ldots, X(t_n)]
+    \end{split}  \\
+    &= \E[X(t_{n+1}) - X(t_n)] + X(t_n) \\
+    &= \E[X(t_{n+1})] - \E[X(t_n)] + X(t_n) \\
+    &= X(t_n) + m(t_{n+1}) - m(t_n).
+\end{align*}
+
+% Pregunta 17
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{Nota.} En lo sejercicios siguientes, $W(\cdot)$ es un proceso de Wiener con parámetro $\sigma^2 > 0$.
+    
+    \textbf{17.} Demuestre que $\E[(W(s)-W(a))(W(t)-W(a))] = \sigma^2 \min(s-a,t-a)$ para todo $s,t \geq a \geq 0$.
+\end{tcolorbox} 
+
+\noindent
+\textit{Solución}.
+\begin{align*}
+    \E[(W(s)-W(a))(W(t)-W(a))] &= \E[W(s)W(t) - W(s)W(a)-W(t)W(a) + W^2(a)] \\
+    \begin{split}
+    &= \E[W(s)W(t)] - \E[W(s)W(a)] - \E[W(t)W(a)] \\ &\quad \quad + \E[W^2(a)].
+    \end{split}
+\end{align*}
+
+Recordemos que $ K_W(s,t) = \Cov(W(s), W(t)) = \E[W(s)W(t)] - \E[W(s)]\E[W(t)]$, por lo que
+\begin{align*}
+    \E[W(s)W(t)] &= K_W(s,t) + \E[W(s)]\E[W(t)] \\
+    &= \sigma^2 \min(s,t) + \E[W(s)]\E[W(t)] \\
+    &= \sigma^2 \min(s,t),
+\end{align*}
+pues en clase vimos que $K_W(s,t) = \lambda \min(s,t)$. Análogamente, 
+\[ \E[W(s)W(a)] = \sigma^2 \min(s,a) \quad \textrm{y} \quad \E[W(t)W(a)] = \sigma^2 \min(t,a). \]
+
+También sabemos que 
+\begin{align*}
+    \E[W^2(a)] &= \Var(W(a)) + \E^2[W(a)] \\
+    &= \sigma^2 a.
+\end{align*}
+
+Así pues, 
+\begin{align*}
+    \E[(W(s)-W(a))(W(t)-W(a))] 
+    &= \sigma^2 \min(s,t) - \sigma^2 \min(s,a) - \sigma^2 \min(a,t) + \sigma^2a \\
+    &= \sigma^2 \min(s,t) - \sigma^2 a - \sigma^2 a + \sigma^2 a \\
+    &= \sigma^2 \min(s,t) - \sigma^2 a \\
+    &= \sigma^2 [\min(s,t) - a] \\
+    &= \sigma^2 \min(s-a, t-a).
+\end{align*}
+
+% Pregunta 18
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]  
+    \textbf{18.} Demuestre que $W(1) + \cdots + W(n)$ tiene distribución $N(0, s_n)$, en donde
+    \[ s_n := \sigma^2 \frac{n(n+1)(2n+1)}{6}. \]
+
+    Sugerencia: use la independencia de los incrementos de $W(\cdot)$ y la fórmula
+    \[ \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}. \]
+\end{tcolorbox} 
+
+
+
+
+\end{document}
