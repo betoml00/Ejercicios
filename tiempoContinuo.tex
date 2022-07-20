@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, es-noshorthands]{babel}
-\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{amssymb,amsmath,amsthm,amsfonts,mathtools}
 \usepackage{tcolorbox}
 \decimalpoint
 \setlength{\parskip}{0.4em}
@@ -68,7 +68,7 @@ Como estamos hablando de incrementos estacionarios con $h=t-s$, y sabemos que se
 \begin{align*}
     Y(t_1) - Y(t_0) &= [X(t_1) - X(0)] - [X(t_0) - X(0)] \\
     &= X(t_1) - X(t_0) \\
-    \vdots \\
+    &\vdotswithin{=} \notag \\
     Y(t_n) - Y(t_{n-1}) &= [X(t_n) - X(0)] - [X(t_{n-1}) - X(0)] \\
     &= X(t_n) - X(t_{n-1})
 \end{align*}
@@ -171,7 +171,7 @@ Generalizando,
 \begin{align*}
     Y(t_1) - Y(t_0) &= (N_1(t_1) + N_2(t_1)) - (N_1(t_0) + N_2(t_0)) \\
     &= (N_1(t_1) - N_1(t_0)) + (N_2(t_1) - N_2(t_0)) \\
-    \vdots \\
+    &\vdotswithin{=} \notag \\
     Y(t_n) - Y(t_{n-1}) &= (N_1(t_n) + N_2(t_n)) - (N_1(t_{n-1}) + N_2(t_{n-1})) \\
     &= (N_1(t_n) - N_1(t_{n-1})) + (N_2(t_n) - N_2(t_{n-1})).
 \end{align*}
@@ -326,7 +326,29 @@ Así pues,
     \[ \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}. \]
 \end{tcolorbox} 
 
+\textit{Solución}. Sean $a_1 = n, a_2 = n-1, \ldots, a_{n-1} = 2, a_n = 1$. Con estos coeficientes, construimos una combinación lineal de incrementos independientes, a saber,
+\begin{align*}
+    \begin{split}
+    \sum_{i=1}^n a_i (W(i) - W(i-1)) &= a_1(W(1)-W(0)) + a_2(W(2) - W(1)) + \cdots \\ 
+                                    & \quad \quad + a_{n-1}(W(n-1) - W(n-2)) + a_n(W(n) - W(n-1))
+    \end{split}  \\
+    \begin{split}
+    &= (a_1-a_2)W(1) + (a_2-a_3)W(2) + \cdots + (a_{n-1}-a_n)W(n-1)\\ & \quad \quad +a_n W(n)
+    \end{split}  \\
+    &= W(1) + W(2) + \cdots + W(n-1) + W(n).
+\end{align*}
 
+Así pues, es posible expresar a $W(1) + \cdots + W(n)$ como una combinación lineal de incrementos independientes y, además, como tratamos con un proceso de Weiner, entonces
+\[ W(i) - W(i-1) \sim N(0, \sigma^2), \]
+tomando a $h=1$. Por lo tanto, como podemos expresar a $W(1) + \cdots + W(n)$ con una combinación lineal de componentes independientes y distribuidos normalmente, entonces $W(1) + \cdots + W(n)$ se distribuye normalmente, de manera que 
+\[ W(1) + \cdots + W(n) = \sum_{i=1}^n a_i (W(i) - W(i-1)) \sim N(0, \sigma^2 \sum_{i=1}^{n}a_i^2), \]
+pero 
+\begin{align*}
+    \sum_{i=1}^{n}a_i^2 &= \sum_{k=1}^n k^2 \\
+    &= \frac{n(n+1)(2n+1)}{6}.
+\end{align*}
 
+Así pues, 
+\[ W(1) + \cdots + W(n) \sim N \left(0, \sigma^2 \frac{n(n+1)(2n+1)}{6} \right). \]
 
 \end{document}
