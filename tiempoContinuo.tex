@@ -31,6 +31,229 @@
 \begin{document}
 \maketitle
 
+% Pregunta 1
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{1.} Demuestre que un proceso de Poisson $N(\cdot)$ tiene trayectorias continuas no decrecientes, es decir, 
+\[ P[N(t) \geq N(s)] = 1 \quad \forall t > s \geq 0. \]
+\end{tcolorbox}
+
+\textit{Solución}. 
+\begin{align*}
+    P(N(t) \geq N(s)) &= P(N(t) - N(s) \geq 0) \\
+    &= \sum_{k=0}^{\infty} P(N(t) - N(s) = k) \\
+    &= \sum_{k=0}^{\infty} P(N(s+t-s) - N(s) = k) \\
+    &= \sum_{k=0}^{\infty} P(N(s+h) - N(s) = k).
+\end{align*}
+
+Como estamos hablando de incrementos estacionarios con $h=t-s$, y sabemos que se distribuyen como una variable aleatoria Poisson, entonces
+    
+\begin{align*}
+    P(N(t) \geq N(s)) &= P(N(t) - N(s) \geq 0) \\
+    &= \sum_{k=0}^{\infty} \frac{e^{-\lambda h}(\lambda h)^k}{k!} \\
+    &= \sum_{k=0}^{\infty} \frac{e^{-\lambda (t-s)}[\lambda (t-s)]^k}{k!} \\
+    &= 1.
+\end{align*}
+
+% Pregunta 2
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{2.} Demuestre:
+\begin{itemize}
+    \item[a)] Si $X(\cdot) = \{ X(t), t \geq 0 \}$ es un PE con incrementos independientes, entonces el PE $Y(\cdot)$ definido por $Y(t) := X(t)-X(0)$, para $t\geq0$, tiene incrementos independientes y $Y(0) = 0$.
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Solución}.
+\begin{align*}
+    Y(t_1) - Y(t_0) &= [X(t_1) - X(0)] - [X(t_0) - X(0)] \\
+    &= X(t_1) - X(t_0) \\
+    \vdots \\
+    Y(t_n) - Y(t_{n-1}) &= [X(t_n) - X(0)] - [X(t_{n-1}) - X(0)] \\
+    &= X(t_n) - X(t_{n-1})
+\end{align*}
+
+Por hipótesis, los incrementos de $X(\cdot)$ son independientes, por lo que los incrementos de $Y(\cdot)$ también lo son. Ahora bien, para $t=0$,
+\[ Y(0) := X(0)-X(0) = 0. \]
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\begin{itemize}
+    \item[b)] Recíprocamente, sea $Y(\cdot) = \{ Y(t), t \geq 0 \}$ un PE con incrementos independientes y $Y(0)=0$, y sea $X(0)$ una v.a. independiente de $Y(\cdot)$. Entonces el PE $X(\cdot)$ definido por $X(t):=Y(t)+X(0)$ para todo $t\geq 0$ tiene incrementos independietes y estado inicial $X(0)$.
+\end{itemize}
+\end{tcolorbox}
+
+\textit{Solución}. Falta.
+
+% Pregunta 7
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{7.} Sea $N(\cdot)$ un proceso de Poisson, y sea $X_0$ una v.a. independiente de $N(\cdot)$ y con distribución $P(X_0=1) = P(X_0=-1) = 1/2$. En este caso, el PE $X(\cdot)$ definido por
+\[ X(t) := X_0 (-1)^{N(t)} \quad t\geq0 \]
+se dice que es una señal telegráfica aleatoria. Calcule la media y la función de covarianza de $X(\cdot)$.
+\end{tcolorbox}
+
+\textit{Solución.}
+\begin{align*}
+    \E[X] &= \E[X_0(-1)^{N(t)}] \\
+    &\overset{\mathrm{ind}}{=} \E[X_0]\E[(-1)^{N(t)}].
+\end{align*}
+
+Ahora bien,
+\[ \E[X_0] = (1)\left(\frac{1}{2}\right) + (-1)\left(\frac{1}{2}\right) = 0. \]
+Por lo que $\E[X] = 0$.
+
+Para la función de covarianza:
+\begin{align*}
+    K_X(s,t) &= \E[X(s)X(t)] - \E[X(s)] \E[X(t)] \\
+    &= \E[X(s)X(t)] \\
+    &= \E[(X_0(-1)^{N(s)})(X_0(-1)^{N(t)})] \\
+    &= \E[X_0^2(-1)^{N(s)+N(t)}] \\
+    &\overset{\mathrm{ind}}{=} \E[X_0^2]\E[(-1)^{N(s)+N(t)}].
+\end{align*}
+
+Calculamos el segundo momento:
+\[ \E[X_0^2] = (1)^2\left(\frac{1}{2}\right) + (-1)^2\left(\frac{1}{2}\right) = 1. \]
+
+Ahora,
+\begin{align*}
+    \E[(-1)^{N(s)+N(t)}] &= \E[(-1)^{N(s)+N(t)-N(s)+N(s)}] \\
+    &= \E[(-1)^{N(t)-N(s)} (-1)^{2N(s)}] \\
+    &= \E[(-1)^{N(t)-N(s)}],
+\end{align*}
+pues $2N(s)$ es par, por lo que $(-1)^{2N(s)} = 1$. Además, como $N(\cdot)$ es un proceso de Poisson,
+\begin{align*}
+    \E[(-1)^{N(s)+N(t)}] &= \sum_{x=0}^{\infty} \frac{[-\lambda(t-s)]^x e^{-\lambda(t-s)}}{x!} \\
+    &= e^{-\lambda(t-s)} \sum_{x=0}^{\infty} \frac{[-\lambda(t-s)]^x}{x!} \\
+    &= e^{-2\lambda(t-s)}.
+\end{align*}
+
+Finalmente,
+\[ K_X(s,t) = e^{-2\lambda(t-s)}.\]
+
+
+
+% Pregunta 8
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{8.} Calcule $\E[N(s)N(s+t)]$ para $s,t\geq 0$, donde $N(\cdot)$ es un proceso de Poisson con parámetro $\lambda$.
+\end{tcolorbox}
+
+\textit{Solución.} Sea $s < t$. 
+
+\begin{align*}
+    \E[N(s)N(s+t)] &= \E\{ N(s)[N(s+t)-N(s)+N(s)] \} \\
+    &= \E\{ N(s)[N(s+t)-N(s)] \} + \E[N^2(s)] \\
+    &= \E\{ [N(s)-N(0)][N(s+t)-N(s)] \} + \E[N^2(s)]
+\end{align*}
+
+Como son intervalos que no se traslapan,
+\begin{align*}
+    \E[N(s)N(s+t)] &= \E[N(s)-N(0)]\E[N(s+t)-N(s)] + \E[N^2(s)] \\
+    &= \lambda s \lambda(s+t-s) + \E[N^2(s)] \\
+    &= \lambda s \lambda t + (\textrm{Var}(N(s))+ \E^2[N(s)]) \\
+    &= \lambda s \lambda t + (\lambda s + \lambda ^2 s^2) \\
+    &= \lambda s (1 + \lambda t + \lambda s).
+\end{align*}
+
+El caso en el que $t < s$ es análogo.
+
+Generalizando, 
+\[\E[N(s)N(s+t)] = \lambda  \min\{s,t\}(1 + \lambda t + \lambda s). \]
+
+% Pregunta 9
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{9.} Demuestre que si $N_1(\cdot)$ y $N_2(\cdot)$ son procesos de Poisson independientes con parámentros $\lambda_1$ y $\lambda_2$, entonces su suma $N_1(t) + N_2(t)$, $t\geq 0$, es un proceso de Poisson con parámetro $\lambda_1 + \lambda_2$. (Observación: la diferencia $N_1(t) - N_2(t)$ no es un proceso de Poisson).
+\end{tcolorbox}
+
+\textit{Solución.} Sea $Y(t) = N_1(t) + N_2(t)$. Primero vemos que $Y(\cdot)$ tenga incrementos independientes.
+
+\begin{align*}
+    Y(t_1) - Y(t_0) &= (N_1(t_1) + N_2(t_1)) - (N_1(t_0) + N_2(t_0)) \\
+    &= (N_1(t_1) - N_1(t_0)) + (N_2(t_1) - N_2(t_0)) \\
+    \vdots \\
+    Y(t_n) - Y(t_{n-1}) &= (N_1(t_n) + N_2(t_n)) - (N_1(t_{n-1}) + N_2(t_{n-1})) \\
+    &= (N_1(t_n) - N_1(t_{n-1})) + (N_2(t_n) - N_2(t_{n-1})).
+\end{align*}
+
+Como $N_1(\cdot)$ es un proceso de Poisson, entonces tiene incrementos independientes, por lo que $(N_1(t_1) - N_1(t_{0})) \bot (N_1(t_2) - N_1(t_{1}))$. Además, como $N_1(\cdot) \bot N_2(\cdot)$, entonces $(N_1(t_1) - N_1(t_{0})) \bot (N_2(t_1) - N_2(t_{0}))$; este razonamiento se utiliza para todos los renglones y así tenemos que el proceso tiene incrementos independientes.
+
+Ahora revisamos que el proceso tenga incrementos estacionarios. Sean $t,s \geq 0$ y $h>0$.
+\begin{align*}
+    Y(t+h) - Y(t) &= (N_1(t+h)+N_2(t+h)) - (N_1(t)-N_2(t)) \\
+    &= N_1(t+h)-N_1(t) + N_2(t+h)-N_2(t),
+\end{align*}
+y sabemos que $N_1(t+h)-N_1(t) \sim \textrm{Poisson}(\lambda_1 h)$ y $N_2(t+h)-N_2(t)\sim \textrm{Poisson}(\lambda_2 h)$. Así pues, como $N_1 \bot N_2$, $Y(t+h) - Y(t) \sim \textrm{Poisson}((\lambda_1 + \lambda_2) h)$. Análogamente, $Y(s+h) - Y(s) \sim \textrm{Poisson}((\lambda_1 + \lambda_2) h)$ y por lo tanto $Y(\cdot)$ tiene incrementos estacionarios.
+
+
+% Pregunta 10
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\textbf{10.} Sea $N(\cdot)$ un proceso de Poisson con intensidad media $\lambda$, y sea $T$ na v.a. positiva independiente de $N(\cdot)$. Calcule $\E[N(T)]$ y $\textrm{Var}(N(T))$ en cada uno de los siguientes casos en los que $T$ tiene distribución:
+\begin{itemize}
+    \item[a)] exponencial con parámetro $\mu$
+\end{itemize}
+\end{tcolorbox}
+Si $T \sim \textrm{Exp}(\mu)$, entonces $\E[T] = 1/\mu$ y $\textrm{Var}(T) = 1/\mu^2$. Así pues, 
+\begin{align*}
+    \E[N(T)] &\overset{\mathrm{c)}}{=} \lambda \E[T] \\
+    &= \frac{\lambda}{\mu} \\
+    \textrm{Var}(N(T)) &\overset{\mathrm{c)}}{=} \lambda \E[T] + \lambda^2 \textrm{Var}(T) \\
+    &= \frac{\lambda}{\mu} + \frac{\lambda^2}{\mu^2}.
+\end{align*}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\begin{itemize}
+    \item[b)] uniforme en el intervalo $[a,b]$, con $0<a<b$
+\end{itemize}
+\end{tcolorbox}
+Si $T \sim \textrm{Unif}(a,b)$, entonces $\E[T] = \frac{a+b}{2}$ y $\textrm{Var}(T) = \frac{(b-a)^2}{12}$. Así pues, 
+\begin{align*}
+    \E[N(T)] &\overset{\mathrm{c)}}{=} \lambda \E[T] \\
+    &= \lambda \left( \frac{a+b}{2} \right) \\
+    \textrm{Var}(N(T)) &\overset{\mathrm{c)}}{=} \lambda \E[T] + \lambda^2 \textrm{Var}(T) \\
+    &= \lambda \left( \frac{a+b}{2} \right) + \frac{\lambda^2 (b-a)^2}{12} .
+\end{align*}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+\begin{itemize}
+    \item[c)] continua arbitraria con densidad $f(t)$
+\end{itemize}
+\end{tcolorbox}
+Vemos que, como $N(t) \sim \textrm{Poisson}(\lambda t)$,
+\[ \E[N(T) \mid T = t] = \lambda t, \]
+    por lo que 
+    \[ \E[N(T) \mid T] = \lambda T, \]
+y, por propiedades de la esperanza iterada, 
+\begin{align*}
+    \E[N(T)] &= \E [ \E[N(T) \mid T] ] \\
+                &= \E [\lambda T] \\
+                &= \lambda \E[T].
+\end{align*}
+
+Por otro lado, 
+\begin{align*}
+\E[N^2(T) \mid T = t] &= \textrm{Var}(N(t)) + \E^2[N(t)] \\    
+&= \lambda t + \lambda^2 t^2
+\end{align*}
+Entonces
+\[ \E[N^2(T) \mid T] = \lambda T + \lambda^2 T^2. \]
+
+Por propiedades de la esperanza iterada, 
+\begin{align*}
+    \E[N^2(T)] &= \E [ \E[N^2(T) \mid T] ] \\
+                &= \E [\lambda T + \lambda^2 T^2] \\
+                &= \lambda \E[T] + \lambda^2 \E[T^2].
+\end{align*}
+
+Por lo tanto,
+\begin{align*}
+    \textrm{Var}(N(T)) &= \E[N^2(T)] - \E^2[N(T)] \\
+    &= \lambda \E[T] + \lambda^2 \E[T^2] -  \lambda^2 \E^2[T] \\
+    &= \lambda \E[T] + \lambda^2 \textrm{Var}(T).
+\end{align*}
+
+
 % Pregunta 16
 %------------------------------------------------------------
 \begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
