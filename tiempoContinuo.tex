@@ -461,6 +461,62 @@ Así pues, sumando ambos resultados,
 \end{align*}
 Por lo tanto,  $W_2(t+h) - W_2(t) \sim N(0, \sigma^2 h)$ y, así, $W_2(\cdot)$ es un PE de Wiener.
 
+% Pregunta 20
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]  
+    \textbf{20.} Calcule $\E[X(t)]$ y $\Cov(X(s),X(t))$ para cada uno de los siguientes procesos
+    \begin{itemize}
+        \item[a)] $X(t):=W^2(t)$ para $t \geq 0$
+    \end{itemize}
+\end{tcolorbox}
 
+\textit{Solución}.
+\begin{align*}
+    \E[X(t)] &= \E[W^2(t)] \\
+    &= \Var(W(t)) + \E^2[W(t)] \\
+    &= \sigma^2 t,
+\end{align*}
+pues $W(t) \sim N(0, \sigma^2t)$ por ser PE de Wiener.
 
+Ahora bien, si $s<t$,
+\begin{align*}
+    K_X(s,t) &= \E[X(s)X(t)] - \E[X(s)]\E[X(t)] \\
+    &= \E[X(s)X(t)] - \sigma^2s \sigma^2t \\
+    &= \E[W^2(s)W^2(t)] - \sigma^4st \\
+    &= \E[(W(s)W(t))^2] - \sigma^4st \\
+    &= \E[(W(s)[W(t)-W(s)+W(s)])^2] - \sigma^4st \\
+    &= \E[(W(s)(W(t)-W(s))+W^2(s))^2] - \sigma^4st \\
+    &= \E[W^2(s)(W(t)-W(s))^2 + 2W^3(s)(W(t)-W(s)) + W^4(s)] - \sigma^4st \\
+    &= \E[W^2(s)(W(t)-W(s))^2] + 2\E[W^3(s)(W(t)-W(s))] + \E[W^4(s)] - \sigma^4st \\
+    &\overset{\mathrm{ind}}{=} \E[W^2(s)]\E[(W(t)-W(s))^2] + 2\E[W^3(s)]\E[W(t)-W(s)] + \E[W^4(s)] - \sigma^4st \\
+    &= (\sigma^2 s)[\sigma^2(t-s)] + \E[W^4(s)] - \sigma^4st \\
+    &= \sigma^4 s(t-s) + 3\sigma^4 s^2 - \sigma^4st \\
+    &= \sigma^4 st - \sigma^4s^2 + 3\sigma^4 s^2 - \sigma^4st \\
+    &= 2\sigma^4 s^2.
+\end{align*}
+Análogamente, si $t<s$, $K_X(s,t) = 2\sigma^4 t^2$. Por lo tanto, $K_X(s,t) = 2 \sigma^4 (\min(s,t))^2$.
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]      
+    \begin{itemize}
+        \item[b)] $X(t):= e^{-at}W(e^{2at})$ para $t \geq 0$, donde $a \geq 0$ es constante.
+    \end{itemize}
+\end{tcolorbox}
+
+\textit{Solución}.
+\begin{align*}
+    \E[X(t)] &= \E[e^{-at}W(e^{2at})] \\
+    &= e^{-at} \E[W(e^{2at})] \\
+    &= e^{-at} 0 \\
+    &= 0.
+\end{align*}
+Ahora bien,
+\begin{align*}
+    K_X(s,t) &= \E[X(s)X(t)] - \E[X(s)]\E[X(t)] \\
+    &= \E[X(s)X(t)] \\
+    &= \E[e^{-as}W(e^{2as})e^{-at}W(e^{2at})] \\
+    &= e^{-a(s+t)} \E[W(e^{2as})W(e^{2at})] \\
+    &= e^{-a(s+t)} (K_W(e^{2as}, e^{2at}) + \E[W(e^{2as})]\E[W(e^{2at})]) \\
+    &= e^{-a(s+t)} K_W(e^{2as}, e^{2at}) \\
+    &= e^{-a(s+t)} \sigma^2 \min(e^{2as}, e^{2at}).
+\end{align*}
 \end{document}
