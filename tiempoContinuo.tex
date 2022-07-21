@@ -280,31 +280,106 @@ Por lo tanto, $ P(N(s) = k \mid N(t) = n) \sim \textnormal{Bin} \left(n, \frac{s
     \textbf{12.} 
 \end{tcolorbox} 
 
-\textit{Solución}.
+\textit{Solución}. ¿?
 
 % Pregunta 13
 %------------------------------------------------------------
 \begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
-    \textbf{13.} 
+    \textbf{13.} El número de personas que pasan frente a un restaurante se comporta  como un proceso de Poisson con parámetro $\lambda = 1000$ personas por hora. Suponga que cada persona tiene probabilidad $p = 0.01$ de entrar al restaurante, y sea $Y$ el número de personas que entran en un periodo de 10 minutos. Calcule $\E[Y]$, $\Var(Y)$ y $P(Y \geq 2)$. Sugerencia: use el ejercicio anterior.
+
 \end{tcolorbox} 
 
 \textit{Solución}.
+\begin{align*}
+ \textnormal{Sean: } N &= \textnormal{\# de personas que pasan frente a un restaurante,}\\
+ p &= \textnormal{probabilidad de entrar} = 0.1\\
+ 1-p &= \textnormal{probabilidad de no entrar} = 0.99\\
+ Y &= \# \textnormal{ de personas que entran en 10 minutos}
+\end{align*}
+
+Además $N(t) \sim Poisson(\lambda t)$
+Sea t = 10 mins = $\frac{1}{6}$ de hora
+
+Entonces $N\left(\frac{1}{6}\right) \sim Poisson \left(\frac{1}{6}100\right)$
+\\Entonces $N\left(\frac{1}{6}\right) \sim Poisson \left(\frac{500}{3}\right)$ pues son incrementos independientes
+
+\begin{align*}
+    \E[Y] &= \frac{5}{3}\\
+    Var(Y) &= \frac{5}{3}\\
+    P(Y \geq 2) &= 1 - P(Y < 2) \\
+    &= 1 - P(Y \leq 1) \\
+    &= 1 - \left( \frac{e^{-5/3} \frac{5}{3}^{0} }{0!} + \frac{e^{-5/3} \frac{5}{3}^{1} }{1!}\right)\\
+    &= 0.4963
+\end{align*}
 
 % Pregunta 14
 %------------------------------------------------------------
 \begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
-    \textbf{14.} 
+    \textbf{14.} El puente de Poisson. Sea $N(\cdot)$ un proceso de Poisson con parámetro $\lambda$, y sea $N_p(t) := N(t) - tN(1)$, para $0 \leq t \leq 1$, el llamado ``puente de Poisson''. Calcule $\E[N_p(t)]$ y la función de covarianza de $N_p (\cdot)$.
 \end{tcolorbox} 
 
 \textit{Solución}.
+\begin{align*}
+    N(t) = N(t) - N(0) &= N(t) \sim Poisson\\
+    \E[N_p(t)] &= \E[N(t) - tN(1)]\\
+    &= \E[N(t)] - t\E[N(1)] \sim Posisson\\
+    &= \lambda t - t(\lambda) \\
+    &= 0\\
+    K_{Np}(s,t) &= \E[N_p(s) N_p(t)] - \E[N_p(s)]\E[N_p(t)]\\
+    &= \E [N_p(s) N_p(t)] \\
+    &= \E [(N(s)-sN(1))(N(t)-tN(1)]\\
+    &= \E [(N(s)N(t)-sN(1)N(t)-t(N(1)N(s)+stN^{2}(1)]
+\end{align*}    
+
+Cálculos auxiliares:
+\begin{align*}
+\E [(N(s)N(t)] &= K_n(s,t) + \E[N(s)]\E[N(t)]\\
+&= \lambda \min(s,t) - \lambda^{2}st\\
+\E[stN^{2}(1)] &= Var(N(1)) + E^{2}[N(1)]\\
+&= \lambda - \lambda^{2}
+\end{align*}
+\begin{align*}
+K_{Np}(s,t) =  & (\lambda \min(s,t) -\lambda^{2}st)- (\lambda s \min(1,t) -\lambda^{2}st) \\
+&- (\lambda t\min(s,1) -\lambda^{2}st) + st(\lambda - \lambda^{2})\\
+\end{align*}
+
+Por hipótesis $0 \leq s, t \leq 1$
+\begin{align*}
+K_{Np}(s,t) =&  (\lambda \min(s,t) -\lambda^{2}st)- (\lambda st - \lambda^{2}st) - (\lambda st -\lambda^{2}st) + \lambda st - \lambda^{2}st\\
+=& (\lambda \min(s,t) - st)
+\end{align*}
 
 % Pregunta 15
 %------------------------------------------------------------
 \begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
-    \textbf{15.} 
+    \textbf{15.} El puente browniano. Repita el ejercicio anterior pero para el ``puente browniano'' $W_p(t) := W(t) - tW(1) $, con $0 \leq t \leq 1$, en donde $W(\cdot)$ es un proceso de Weiner o movimiento browniano.
 \end{tcolorbox} 
 
 \textit{Solución}.
+\begin{align*}
+    W(t) = W(t) - W(0) &= N(0, \sigma^{2}t) \textnormal{es un proceso de Weiner}\\
+    \E[W_p(t)] &= \E[W(t) - tW(1)]\\
+    &= \E[W(t)] - t\E[W(1)] \\
+    &= 0 \textnormal{, pues es un proceso Weiner}\\ 
+    K_{Wp}(s,t) &= \E[W_p(s) W_p(t)] - \E[W_p(s)]\E[W_p(t)]\\
+    &= \E [W_p(s) W_p(t)] \\
+    &= \E [(W(s)-sW(1))(W(t)-tW(1)]\\
+    &= \E [(W(s)W(t)-sW(1)W(t)-t(W(1)W(s)+stW^{2}(1)]
+\end{align*}
+
+Cálculos auxiliares
+\begin{align*}
+\E [(W(s)W(t)] &= K_w(s,t) + \E[W(s)]\E[W(t)]\\
+&= \sigma \textnormal{min(s,t)}\\
+\E[stW^{2}(1)] &= Var(W(1)) + E^{2}[W(1)]\\
+&= \sigma^{2}
+\end{align*}
+\begin{align*}
+K_{wp}(s,t) =  & \sigma^{2} \textnormal{ min}(s,t) - \sigma^{2} s \textnormal{ min}(1,t) - \sigma^{2} s \textnormal{ min}(s,1)-\sigma^{2}st \\
+=  & \sigma^{2} \textnormal{ min}(s,t) - \sigma^{2} st - \sigma^{2} st-\sigma^{2}st \\
+=  & \sigma^{2} \textnormal{ min}(s,t) - \sigma^{2} st\\
+=  & \sigma^{2}( \textnormal{ min}(s,t) - st)
+\end{align*}
 
 % Pregunta 16
 %------------------------------------------------------------
