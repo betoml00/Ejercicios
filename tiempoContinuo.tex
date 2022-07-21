@@ -289,23 +289,16 @@ Por lo tanto, $ P(N(s) = k \mid N(t) = n) \sim \textnormal{Bin} \left(n, \frac{s
 
 \end{tcolorbox} 
 
-\textit{Solución}.
+Sea $N$ el número de personas que pasa frente a un restaurante. Entonces, por hipótesis, $N(t) \sim Poisson(1000t)$, en donde $t = 10$ mins $ = 1/6$ de hora. Así pues, $N(1/6) \sim Poisson(500/3)$. 
+
+Ahora, sea $X(\cdot) = \{ X(t), t \geq 0 \}$ el PE en el que $X(t)$ es el número de veces que una persona entra al restaurante en el intervalo $[0, t]$. Por el inciso anterior, $X(\cdot)$ es un proceso Poisson con parámetro $\lambda p = 10$; es decir, $ X(t) \sim Poisson(10t)$.
+
+Nótese que podemos definir a $Y$ en términos de $X$, a saber:
+\[ Y = X(t+1/6) - X(t) \]
+Pero $X(t+1/6) - X(t) \sim Poisson(5/3)$, ya que $X$ tiene incrementos estacionarios. Así pues:
 \begin{align*}
- \textnormal{Sean: } N &= \textnormal{\# de personas que pasan frente a un restaurante,}\\
- p &= \textnormal{probabilidad de entrar} = 0.1\\
- 1-p &= \textnormal{probabilidad de no entrar} = 0.99\\
- Y &= \# \textnormal{ de personas que entran en 10 minutos}
-\end{align*}
-
-Además $N(t) \sim Poisson(\lambda t)$
-Sea t = 10 mins = $\frac{1}{6}$ de hora
-
-Entonces $N\left(\frac{1}{6}\right) \sim Poisson \left(\frac{1}{6}100\right)$
-\\Entonces $N\left(\frac{1}{6}\right) \sim Poisson \left(\frac{500}{3}\right)$ pues son incrementos independientes
-
-\begin{align*}
-    \E[Y] &= \frac{5}{3}\\
-    Var(Y) &= \frac{5}{3}\\
+    \E[Y] &= \frac{5}{3}, \\
+    \Var(Y) &= \frac{5}{3}, \quad \textrm{y}\\
     P(Y \geq 2) &= 1 - P(Y < 2) \\
     &= 1 - P(Y \leq 1) \\
     &= 1 - \left( \frac{e^{-5/3} \frac{5}{3}^{0} }{0!} + \frac{e^{-5/3} \frac{5}{3}^{1} }{1!}\right)\\
@@ -320,34 +313,35 @@ Entonces $N\left(\frac{1}{6}\right) \sim Poisson \left(\frac{1}{6}100\right)$
 
 \textit{Solución}.
 \begin{align*}
-    N(t) = N(t) - N(0) &= N(t) \sim Poisson\\
     \E[N_p(t)] &= \E[N(t) - tN(1)]\\
-    &= \E[N(t)] - t\E[N(1)] \sim Posisson\\
+    &= \E[N(t)] - t\E[N(1)]\\
     &= \lambda t - t(\lambda) \\
-    &= 0\\
+    &= 0.\\
+\end{align*}
+\begin{align*}
     K_{Np}(s,t) &= \E[N_p(s) N_p(t)] - \E[N_p(s)]\E[N_p(t)]\\
     &= \E [N_p(s) N_p(t)] \\
     &= \E [(N(s)-sN(1))(N(t)-tN(1)]\\
-    &= \E [(N(s)N(t)-sN(1)N(t)-t(N(1)N(s)+stN^{2}(1)]
+    &= \E [(N(s)N(t)-sN(1)N(t)-t(N(1)N(s)+stN^{2}(1)] \\
+    &= \E[N(s)N(t)] - s\E[N(1)N(t)] - t\E[N(1)N(s)] + st \E[N^2(1)].
 \end{align*}    
 
-Cálculos auxiliares:
+Ahora bien:
 \begin{align*}
 \E [(N(s)N(t)] &= K_n(s,t) + \E[N(s)]\E[N(t)]\\
-&= \lambda \min(s,t) - \lambda^{2}st\\
-\E[stN^{2}(1)] &= Var(N(1)) + E^{2}[N(1)]\\
-&= \lambda - \lambda^{2}
-\end{align*}
-\begin{align*}
-K_{Np}(s,t) =  & (\lambda \min(s,t) -\lambda^{2}st)- (\lambda s \min(1,t) -\lambda^{2}st) \\
-&- (\lambda t\min(s,1) -\lambda^{2}st) + st(\lambda - \lambda^{2})\\
+&= \lambda \min(s,t) + \lambda^{2}st\\
+\E[N^{2}(1)] &= Var(N(1)) + E^{2}[N(1)]\\
+&= \lambda + \lambda^{2}
 \end{align*}
 
-Por hipótesis $0 \leq s, t \leq 1$
+Entonces
 \begin{align*}
-K_{Np}(s,t) =&  (\lambda \min(s,t) -\lambda^{2}st)- (\lambda st - \lambda^{2}st) - (\lambda st -\lambda^{2}st) + \lambda st - \lambda^{2}st\\
-=& (\lambda \min(s,t) - st)
+    K_{N_p}(s,t) &= \lambda \min(s,t) + \lambda^{2}st - s(\lambda \min(1,t) + \lambda^{2}t) - t(\lambda \min(1,s) + \lambda^{2}s) + st(\lambda + \lambda^{2}) \\
+    &= \lambda \min(s,t) - s\lambda\min(1,t) - t(\lambda \min(1,s)) \\
+    &= \lambda \min(s,t) - s\lambda t - t\lambda s \\
+    &= \lambda \min(s,t) - 2\lambda st,
 \end{align*}
+pues $t \leq 1$ y $s \leq 1$.
 
 % Pregunta 15
 %------------------------------------------------------------
