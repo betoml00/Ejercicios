@@ -253,6 +253,58 @@ Por lo tanto,
     &= \lambda \E[T] + \lambda^2 \textrm{Var}(T).
 \end{align*}
 
+% Pregunta 11
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{11.} Sea $N(\cdot)$ un proceso Poisson y sea 0 < s < t. Demuestre que la distribución condicional de $N(s)$, dado que $N(t) = n$, es la distribución $Bin(n,p)$ con $p = s/t$, es decir,
+    \[ P[N(s) = k \mid N(t) = n] = \binom{n}{k}p^{k}(1-p)^{n-k} \textnormal{para k = 0,1,...,n}. \]
+\end{tcolorbox} 
+
+\textit{Solución}.
+\begin{align*}
+P(N(s) = k \mid N(t) = n) &= \frac{P(N(s)=k, N(t) = n)}{P(N(t) = n)}\\
+&= \frac{P(N(s)-N(0) = k, N(t)-N(s) = n-k)}{P(N(t) = n)}\\
+&\overset{\mathrm{ind}}{=} \frac{P[N(s)-N(0) = k] P[N(t)-N(s) = n-k]}{P(N(t) = n)} \\
+&= \frac{\left(\frac{e^{-\lambda s} (\lambda s) ^{k}}{k!}\right) \left(\frac{e^{-\lambda (t-s)} (\lambda (t-s)) ^{n-k}}{(n-k)!}\right)}{\frac{e^{-\lambda t (\lambda t)^{n}}}{n!}} \\
+&= \frac{e^{-\lambda s}(\lambda s)^{k} e^{-\lambda t} e^{\lambda s} (\lambda(t-s) )^{n-k} n! }{e^{-\lambda t}(\lambda t )^{n} k! (n-k)! }\\
+&= \frac{n!}{k!(n-k)!} \frac{\lambda^{k} s^{k}\lambda^{n-k} (t-s)^{n-k} }{\lambda^{n}t^{n} }\\
+&= \binom{n}{k} \frac{s^k(t-s)^{n-k}}{t^k t^{n-k}} \\
+&= \binom{n}{k} \left(\frac{s}{t}\right)^{k} \left(\frac{t-s}{t}\right)^{n-k}.
+\end{align*}
+
+Por lo tanto, $ P(N(s) = k \mid N(t) = n) \sim \textnormal{Bin} \left(n, \frac{s}{t} \right)$.
+
+% Pregunta 12
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{12.} 
+\end{tcolorbox} 
+
+\textit{Solución}.
+
+% Pregunta 13
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{13.} 
+\end{tcolorbox} 
+
+\textit{Solución}.
+
+% Pregunta 14
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{14.} 
+\end{tcolorbox} 
+
+\textit{Solución}.
+
+% Pregunta 15
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]
+    \textbf{15.} 
+\end{tcolorbox} 
+
+\textit{Solución}.
 
 % Pregunta 16
 %------------------------------------------------------------
