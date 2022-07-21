@@ -338,7 +338,7 @@ Así pues,
     &= W(1) + W(2) + \cdots + W(n-1) + W(n).
 \end{align*}
 
-Así pues, es posible expresar a $W(1) + \cdots + W(n)$ como una combinación lineal de incrementos independientes y, además, como tratamos con un proceso de Weiner, entonces
+Así pues, es posible expresar a $W(1) + \cdots + W(n)$ como una combinación lineal de incrementos independientes y, además, como tratamos con un proceso de Wiener, entonces
 \[ W(i) - W(i-1) \sim N(0, \sigma^2), \]
 tomando a $h=1$. Por lo tanto, como podemos expresar a $W(1) + \cdots + W(n)$ con una combinación lineal de componentes independientes y distribuidos normalmente, entonces $W(1) + \cdots + W(n)$ se distribuye normalmente, de manera que 
 \[ W(1) + \cdots + W(n) = \sum_{i=1}^n a_i (W(i) - W(i-1)) \sim N(0, \sigma^2 \sum_{i=1}^{n}a_i^2), \]
@@ -350,5 +350,117 @@ pero
 
 Así pues, 
 \[ W(1) + \cdots + W(n) \sim N \left(0, \sigma^2 \frac{n(n+1)(2n+1)}{6} \right). \]
+
+% Pregunta 19
+%------------------------------------------------------------
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]  
+    \textbf{19.} Demuestre que cada uno de los siguientes PEs es de Wiener:
+    \begin{itemize}
+        \item[a)] $W_1(t) := a^{-1/2} W(at)$ para $t \geq 0$ (donde $a$ es una constante)
+    \end{itemize}
+\end{tcolorbox}
+
+\textit{Solución}.
+
+\textit{i}) P.D. que $W_1(0) = 0$ c.s.
+\begin{align*}
+    W_1(0) &:= a^{-1/2}W(a0) \\
+    &= a^{-1/2}W(0) \\
+    &= 0 \quad \textrm{c.s.}
+\end{align*}
+pues $W(0) = 0$ c.s. por ser proceso de Wiener.
+
+\textit{ii})  P.D. que $W_1(\cdot)$ tiene incrementos independientes. Sean $0 \leq t_0 < t_1 < t_n$
+\begin{align*}
+    W_1(t_1) - W_1(t_0) &= a^{-1/2}W(at_1) - a^{-1/2}W(at_0) = a^{-1/2}[W(at_1)- W(at_0)] \\
+    W_1(t_2) - W_1(t_1) &= a^{-1/2}W(at_2) - a^{-1/2}W(at_1) = a^{-1/2}[W(at_2)- W(at_1)] \\
+    &\vdotswithin{=} \notag \\
+    W_1(t_n) - W_1(t_{n-1}) &= a^{-1/2}W(at_n) - a^{-1/2}W(at_{n-1}) = a^{-1/2}[W(at_n)- W(at_{n-1})] \\
+\end{align*}
+
+Como $W(\cdot)$ es un proceso de Wiener, tiene incrementos independientes, por lo que 
+\[ [W(at_1)- W(at_0)] \bot [W(at_2)- W(at_1)] \bot \cdots \bot [W(at_n)- W(at_{n-1})]  \]
+y, por lo tanto, $W_1(\cdot)$ tiene incrementos independientes.
+
+\textit{iii}) P.D. que $W_1(\cdot)$ tiene incrementos estacionarios con $W_1(t+h) - W_1(t) \sim N(0, \sigma^2 h)$.
+\begin{align*}
+    W_1(t+h) - W_1(t) &= a^{-1/2}W(a(t+h)) - a^{-1/2} W(at) \\
+    &= a^{-1/2}[W(a(t+h)) - W(at)] \\
+    &= a^{-1/2}[W(at+ah) - W(at)].
+\end{align*}
+
+Pero $[W(at+ah) - W(at)] \sim N(0, \sigma^2ah)$, por lo que
+\begin{align*}
+    W_1(t+h) - W_1(t) &\sim a^{-1/2} N(0, \sigma^2ah) \\
+    &= N(a^{-1/2} 0, (a^{-1/2})^2 \sigma^2 ah) \\
+    &= N(0, \sigma^2 h).
+\end{align*}
+
+Así, $W_1(\cdot)$ tiene incrementos estacionarios distribuidos normalmente y, por lo tanto, es un PE de Wiener.
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!5!white, arc=0mm, boxrule=0pt]  
+    \begin{itemize}
+        \item[b)] $W_2(t) := tW(1/t)$ para $t > 0$ y $W_2(0):=0$
+    \end{itemize}
+\end{tcolorbox}
+
+\textit{Solución}.
+
+\textit{i}) $W_2(0) = 0$ por hipótesis.
+
+\textit{ii}) P.D. que $W_2(\cdot)$ tiene incrementos independientes. Sean $0 \leq t_0 < t_1 < t_n$
+
+\begin{align*}
+    W_2(t_1) - W_2(t_0) &= t_1 W(1/t_1) - t_0W(1/t_0) \\
+    W_2(t_2) - W_2(t_1) &= t_2 W(1/t_2) - t_1W(1/t_1) \\
+    &\vdotswithin{=} \notag \\
+    W_2(t_n) - W_2(t_{n-1}) &= t_n W(1/t_n) - t_{n-1}W(1/t_{n-1}).
+\end{align*}
+
+Como $W(\cdot)$ es un proceso de Wiener, tiene incrementos independientes, por lo que 
+\[ [t_1 W(1/t_1)- t_0W(1/t_0)] \bot [t_2 W(1/t_2) - t_1W(1/t_1)] \bot \cdots \bot [t_n W(1/t_n) - t_{n-1}W(1/t_{n-1})]  \]
+y, por lo tanto, $W_2(\cdot)$ tiene incrementos independientes.
+
+\textit{iii}) P.D. que $W_2(\cdot)$ tiene incrementos estacionarios con $W_2(t+h) - W_2(t) \sim N(0, \sigma^2 h)$.
+\begin{align*}
+    W_2(t+h)-W_2(t) &= (t+h) W(1/(t+h)) - tW(1/t) \\
+    &= -t [ W(1/t) - W(1/(t+h)) ] + hW(1/(t+h)).
+\end{align*}
+
+Como estamos tratando con una combinación lineal de elementos independientes y distribuidos normalmente, entonces la combinación es distribuida normalmente. Es decir, sea 
+\[Y := -t [ W(1/t) - W(1/(t+h)) ] + hW(1/(t+h)). \]
+Entonces $Y \sim N(\mu_y, \sigma_y^2)$, en donde
+\begin{align*}
+    \mu_y &= \E[Y] \\
+    &= \E\{-t [ W(1/t) - W(1/(t+h)) ] + hW(1/(t+h))\} \\
+    &= -t \E[W(1/t)] + t\E[W(1/(t+h))] + h\E[W(1/(t+h))] \\
+    &= -t0 + t0 + h0 \\
+    &= 0.
+\end{align*}
+Además,
+\begin{align*}
+    \sigma_y^2 &= \Var(Y) \\
+    &= \Var(-t [ W(1/t) - W(1/(t+h)) ] + hW(1/(t+h))) \\
+    &= \Var(-t [ W(1/t) - W(1/(t+h)) ] + h[W(1/(t+h))-W(0)]) \\
+    &\overset{\mathrm{ind}}{=} t^2\Var[ W(1/t) - W(1/(t+h)) ] + h^2\Var[W(1/(t+h))-W(0)].
+\end{align*}
+Como $W(\cdot)$ es un proceso de Wiener, entonces $W(1/t) - W(1/(t+h)) \sim N(0, \sigma^2(1/t - 1/(t+h)))$, por lo que
+\begin{align*}
+    t^2\Var[ W(1/t) - W(1/(t+h)) ] &= t^2[\sigma^2(1/t - 1/(t+h))] \\
+    &= t^2\sigma^2 \frac{t+h-t}{t(t+h)}  \\
+    &= \frac{t \sigma^2 h}{t+h}.
+\end{align*}
+Similarmente, $W(1/(t+h))-W(0) \sim N(0, \sigma^2 (1/(t+h)))$, por lo que
+\[ h^2\Var[W(1/(t+h))-W(0)] = \frac{h^2 \sigma^2}{t+h}. \]
+Así pues, sumando ambos resultados,
+\begin{align*}
+    \sigma_y^2 &= \frac{t \sigma^2 h}{t+h} + \frac{h^2 \sigma^2}{t+h} \\
+    &= \sigma^2h \left(\frac{t}{t+h} + \frac{h}{t+h} \right) \\
+    &= \sigma^2h \left(\frac{t+h}{t+h} \right) \\
+    &= \sigma^2h.
+\end{align*}
+Por lo tanto,  $W_2(t+h) - W_2(t) \sim N(0, \sigma^2 h)$ y, así, $W_2(\cdot)$ es un PE de Wiener.
+
+
 
 \end{document}
